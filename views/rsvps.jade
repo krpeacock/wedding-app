@@ -1,0 +1,16 @@
+extends ./layout
+
+block header
+  script(src="/javascripts/total.js")
+
+block content
+  #wrapper
+    each guest in guests
+      unless guest.json.RSVP === "false"
+        .tile
+          a(href="/#{guest.id}")
+            h3= guest.name
+          p Address: #{guest.json["Mailing Address"]}
+          p Email: #{guest.json["Email Address"]}
+          p Has RSVP'ed: #{guest.json.RSVP}
+          p Thanked: #{guest.json.Thanked}

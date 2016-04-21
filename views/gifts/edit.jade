@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Gift
+  link(rel="stylesheet", href="stylesheets/style.css")
+body
+  h1 Edit Gift from #{guest.name}
+  form(action='/#{guest.id}/gifts/#{gift.id}?_method=PUT', method="post")
+    h4 Description of gift
+    input(type="textbox", name="description", value="#{gift.description}")
+    h4 Link to image of gift <em>*optional*</em>
+    input(type='text', name="img" value="#{gift.img || ''}")
+    br
+    input(type='submit', value="submit")
+  form(action="/#{guest.id}/gifts/#{gift.id}?_method=DELETE", method='post')
+      input(type="submit", value="Delete Gift")

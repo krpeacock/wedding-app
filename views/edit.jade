@@ -1,0 +1,41 @@
+extends ./layout
+block header
+  link(rel="stylesheet", href="/stylesheets/style.css")
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js") 
+  script(src='/javascripts/checkbox.js')
+  meta(charset="UTF-8")
+  title Document
+
+block content
+  h1(id="id" value="#{guest.id}") Edit #{guest.name}'s Info
+  form(id = "form", action="/#{guest.id}?_method=PUT", method = "post")
+    h4 Mailing Address:
+    input(type="text", id="mail", name="json[Mailing Address]", value="#{guest.json['Mailing Address']}")
+    h4 Email Address:
+    input(type="text", id="email", name="json[Email Address]", value="#{guest.json['Email Address']}")
+    hr
+    h4 Has RSVP'ed:
+    input(type="hidden", id="rsvp", name='json[RSVP]', value="#{guest.json['RSVP']}")
+    .rsvp
+      .inputGroup
+        h5 true
+        input(type="checkbox" id="rsvp_true" value="true")
+      .inputGroup
+        h5 false
+        input(type="checkbox" id="rsvp_false" value="false")
+    hr
+    h4 Has been thanked:
+    input(type='hidden', id="thanked", name='json[Thanked]', value='#{guest.json[Thanked]}')
+    .thanked
+      .inputGroup
+        h5 true
+        input(type="checkbox" id="thanked_true" value="true")
+      .inputGroup
+        h5 false
+        input(type="checkbox" id="thanked_false" value="false")
+    hr
+    input(type="submit" value="submit")
+  hr
+  h4 Delete User
+  form(action="/#{guest.id}?_method=DELETE" method="post")
+    input(type="submit" value="submit")

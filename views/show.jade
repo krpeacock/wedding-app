@@ -1,0 +1,19 @@
+extends ./layout
+
+block content
+  aside
+    a(href="/#{guest.id}/edit") Edit Guest
+    a(href="/#{guest.id}/gifts/new") Add a gift
+  h1= guest.name
+  p Mailing Address:  #{guest.json['Mailing Address']}
+  p Email Address: #{guest.json['Email Address']}
+  p Gifts: #{guest.json['Gifts']}
+  p RSVP'ed yet? #{guest.json['RSVP']}
+  p Thanked? #{guest.json['Thanked']}
+  hr
+  h3 Gifts:
+  if gifts
+    each gift in gifts
+      p= gift.description
+      a(href="/#{guest.id}/gifts/#{gift.id}")
+        img(src="#{gift.img}", alt="No image for this gift")

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Gift
+body
+  h1 Gift from #{guest.name}
+  br
+  img(src="#{gift.img}", alt="No Image Available")
+  p= gift.description
+  a(href="/#{guest.id}/gifts/#{gift.id}/edit") Edit Gift
+  form(action="/#{guest.id}/gifts/#{gift.id}?_method=DELETE", method='post')
+      input(type="submit", value="Delete Gift")
