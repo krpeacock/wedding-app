@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-html(lang="en")
-head
-  meta(charset="UTF-8")
-  title Gift
-  link(rel="stylesheet", href="stylesheets/style.css")
-body
+extends ../layout
+block content
   h1 Edit Gift from #{guest.name}
   form(action='/#{guest.id}/gifts/#{gift.id}?_method=PUT', method="post")
     h4 Description of gift

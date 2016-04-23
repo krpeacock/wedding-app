@@ -12,5 +12,16 @@ block content
             h3= guest.name
           p Address: #{guest.json["Mailing Address"]}
           p Email: #{guest.json["Email Address"]}
-          p Has RSVP'ed: #{guest.json.RSVP}
-          p Thanked: #{guest.json.Thanked}
+          if guest.json.RSVP === "true"
+            p RSVP'ed: 
+              span.green Yes!
+          else
+            p RSVP'ed: 
+              span.red No
+
+          if guest.json.Thanked === "true"
+            p thanked'ed: 
+              span.green Yes!
+          else
+            p Thanked:  
+              span.red No

@@ -15,13 +15,13 @@ router.get("/rsvp", function(req, res){
 })
 
 router.get('/new', function(req, res){
-  res.render('new');
+  res.render('guests/new');
 })
 
 router.get('/:id', function(req, res){
   knex('guests').where('id', +req.params.id).first().then(function(guest){
     knex('gifts').where('guest_id', +req.params.id).then(function(gifts){
-      res.render("show", {guest: guest, gifts: gifts})
+      res.render("guests/show", {guest: guest, gifts: gifts})
     })
   })
 })
@@ -29,7 +29,7 @@ router.get('/:id', function(req, res){
 router.get('/:id/edit', function(req, res){
   knex('guests').where('id', +req.params.id).first().then(function(guest){
     knex('gifts').where('guest_id', +req.params.id).then(function(gifts){
-      res.render("edit", {guest: guest, gifts: gifts})
+      res.render("guests/edit", {guest: guest, gifts: gifts})
     })
   })
 })

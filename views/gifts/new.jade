@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-html(lang="en")
-head
-  meta(charset="UTF-8")
-  title Document
-body
+extends ../layout
+block content
   h1 Enter a gift from #{guest.name}:
   form(action="/#{guest.id}/gifts", method="POST")
     h4 Description of gift
