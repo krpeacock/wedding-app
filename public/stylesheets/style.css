@@ -1,3 +1,87 @@
+.content {
+  font-size: 18px;
+}
+
+label {
+  display: inline-block;
+  padding: 0;
+}
+
+
+.logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 25px;
+  margin-left: 20%;
+  margin-right: 15%;
+}
+
+
+
+.inputGroup{
+  margin: 20px 0;
+}
+
+.inputGroup input {
+  display:block;
+  margin: 10px 0;
+  width: 280px;
+}
+.categoryDropdown label, .categoryDropdown input {
+  padding: 15px;
+}
+
+#button {
+  position: absolute;
+  top: 80vh;
+  left: 45%;
+}
+
+.menu {
+  position: fixed;
+  right: 0vw;
+  font-size: 20px;
+  width: 20vw;
+  padding: 10px;
+  background-color: rgba(100,100,100,0.5);
+}
+
+.bodyDiv {
+  margin: 0 auto;
+  background-color: rgba(50,50,200,0.1);
+  border-radius: 10px;
+  margin: 10px;
+  width: 80vw;
+  height: auto;
+  padding: 2vw;
+}
+
+
+a {
+  color: #005999;
+}
+
+a:hover {
+  color: #3af;
+}
+
+
+.dropdown {
+  float: right;
+  position: fixed;
+  left: 75vw;
+  top: 15vh;
+}
+
+.caret {
+  margin: 10px;
+}
+
+.dropdown-menu {
+  padding:20px;
+  font-size:1.5em;
+}
+
 h1, h2, h3, h4, h5, p, a {
   margin:5px;
 }
@@ -28,7 +112,7 @@ aside a {
   border-radius: 10px;
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   float:left;
-  margin: 40px;
+  margin: 30px;
 }
 #wrapper{
   position:relative;
