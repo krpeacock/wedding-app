@@ -8,9 +8,25 @@ router.get("/", function(req, res){
   })
 })
 
+router.get("/react", function(req, res){
+  knex('guests').then(function(guests){
+     res.render("react", {guests: guests});
+  })
+})
+
 router.get("/rsvp", function(req, res){
   knex('guests').then(function(guests){
      res.render("rsvps", {guests: guests});
+  })
+})
+
+router.get('/json/guests', function(req, res){
+  knex('guests').then(function(guests){
+     res.format({
+       'application/json':() =>{
+        res.send(guests)
+      },
+     })
   })
 })
 
