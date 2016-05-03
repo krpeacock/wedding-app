@@ -26,6 +26,33 @@ var Page = React.createClass({
 		})
 		this.setState({guests: filtered})
 	},
+	handleToggle: function handleToggle(e){
+		if ($(e.target).hasClass('active')){
+		}
+		else{
+			var parent = $(e.target).parent();
+			var guest_id = $(parent).data('value');
+			var value = $(e.target).data('title');
+			var children = parent.children();
+			var siblings = [];
+
+			for (var i=0;i<children.length;i++){
+				if ($(children[i]).data('title') !== value){
+					if ($(children[i]).hasClass('active')){
+						$(children[i]).addClass('notActive');
+						$(children[i]).removeClass('active');
+					}
+					siblings.push(children[i]);
+				}
+			}
+			$(e.target).addClass("active");
+			$(e.target).removeClass("notActive");
+
+			$.post( "/rsvp", {rsvp: value, guest_id: guest_id} ,function(data) {
+				console.log(data);
+			});
+		}
+	},
 	componentWillMount: function () {
 		$.getJSON("/guests").then((function(guests ) {
 			this.setState({
@@ -46,10 +73,11 @@ var Page = React.createClass({
 						email={v.json['Email Address']}
 						rsvp={v.json['RSVP']}
 						thanked={v.json['Thanked']}
+						handleToggle={this.handleToggle}
 					/>
 				</div>
 			)
-		})
+		}.bind(this))
 		return(
 			<div>
 				<h1>Wedding Guest Manager</h1>
@@ -72,12 +100,72 @@ var Guest = React.createClass({
 				</a>
 				<p>Address: {this.props.address}</p>
 				<p>Email: {this.props.email}</p>
-				<p>RSVP'ed: {this.props.rsvp}</p>
+				<RsvpDropdown
+					guest={this.props.id}
+					handleToggle={this.props.handleToggle}
+					rsvp={this.props.rsvp}
+				/>
 				<p>Thanked: {this.props.thanked}</p>
 			</div>
 	)
 	}
 });
+
+var RsvpDropdown = React.createClass({
+	render: function() {
+		if (this.props.rsvp === "not coming"){
+			return (
+				<div className="form-group">
+					<label for="rsvp"/> RSVP:
+					<div className="scooch">
+						<div className="input-group">
+							<div data-value={this.props.guest} className="btn-group" onClick={this.props.handleToggle}>
+								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="no">Not RSVP'ed</a>
+								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="coming">Coming</a>
+								<a className="btn btn-primary btn-sm active" data-guest="rsvp" data-title="not coming">Not Coming</a>
+							</div>
+							<input type="hidden" name="rsvp"/>
+						</div>
+					</div>
+				</div>
+			)
+		}
+		else if (this.props.rsvp === "coming"){
+			return (
+				<div className="form-group">
+					<label for="rsvp"/> RSVP:
+					<div className="scooch">
+						<div className="input-group">
+							<div data-value={this.props.guest} className="btn-group" onClick={this.props.handleToggle}>
+								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="no">Not RSVP'ed</a>
+								<a className="btn btn-primary btn-sm active" data-guest="rsvp" data-title="coming">Coming</a>
+								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="not coming">Not Coming</a>
+							</div>
+							<input type="hidden" name="rsvp"/>
+						</div>
+					</div>
+				</div>
+			)
+		}
+		else {
+			return (
+				<div className="form-group">
+					<label for="rsvp"/> RSVP:
+					<div className="scooch">
+						<div className="input-group">
+							<div data-value={this.props.guest} className="btn-group" onClick={this.props.handleToggle}>
+								<a className="btn btn-primary btn-sm active" data-guest="rsvp" data-title="no">Not RSVP'ed</a>
+								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="coming">Coming</a>
+								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="not coming">Not Coming</a>
+							</div>
+							<input type="hidden" name="rsvp"/>
+						</div>
+					</div>
+				</div>
+			)
+		}
+	}
+})
 
 var MenuBox = React.createClass({
 	render: function (){

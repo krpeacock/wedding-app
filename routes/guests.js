@@ -19,10 +19,10 @@ router.get("/", function(req, res){
 // })
 
 router.get('/guests', function(req, res){
-  knex('guests').then(function(guests){
+  knex('guests').orderBy("id", "asc").then(function(guests){
      res.format({
        'application/json':() =>{
-        res.send(guests)
+        res.json(guests)
       },
      })
   })
@@ -52,6 +52,15 @@ router.post('/', function(req, res){
   knex('guests').insert({name: req.body.name, json: req.body.json}).then(function(){
     res.redirect('/');
   });
+})
+router.post('/rsvp', function(req, res){
+  knex('guests').where("id", req.body.guest_id).first().then(function(guest){
+    var json = guest.json;
+    json.RSVP = req.body.rsvp;
+    knex('guests').where('id', req.body.guest_id).update({json: json}).then(function(updated){
+      res.send(updated);
+    })
+  })
 })
 
 router.put('/:id', function(req, res){
