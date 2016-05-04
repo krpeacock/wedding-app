@@ -47,10 +47,16 @@ var Page = React.createClass({
 			}
 			$(e.target).addClass("active");
 			$(e.target).removeClass("notActive");
-
-			$.post( "/rsvp", {rsvp: value, guest_id: guest_id} ,function(data) {
-				console.log(data);
-			});
+			if ($(e.target).data('guest') === "thanked"){
+				$.post( "/thanked", {thanked: value, guest_id: guest_id} ,function(data) {
+					console.log(data);
+				});
+			}
+			else{
+				$.post( "/rsvp", {rsvp: value, guest_id: guest_id} ,function(data) {
+					console.log(data);
+				});
+			}
 		}
 	},
 	componentWillMount: function () {
@@ -105,7 +111,11 @@ var Guest = React.createClass({
 					handleToggle={this.props.handleToggle}
 					rsvp={this.props.rsvp}
 				/>
-				<p>Thanked: {this.props.thanked}</p>
+				<ThankedDropdown
+					guest={this.props.id}
+					handleToggle={this.props.handleToggle}
+					thanked={this.props.thanked}
+				/>
 			</div>
 	)
 	}
@@ -167,6 +177,43 @@ var RsvpDropdown = React.createClass({
 	}
 })
 
+var ThankedDropdown = React.createClass({
+	render: function() {
+		if (this.props.thanked === "yes"){
+			return (
+				<div className="form-group">
+					<label for="thanked"/> Thanked:
+					<div className="scooch">
+						<div className="input-group">
+							<div data-value={this.props.guest} className="btn-group" onClick={this.props.handleToggle}>
+								<a className="btn btn-primary btn-sm notActive" data-guest="thanked" data-title="no">No</a>
+								<a className="btn btn-primary btn-sm active" data-guest="thanked" data-title="yes">Yes</a>
+							</div>
+							<input type="hidden" name="thanked"/>
+						</div>
+					</div>
+				</div>
+			)
+		}
+		else {
+			return (
+				<div className="form-group">
+					<label for="thanked"/> Thanked:
+					<div className="scooch">
+						<div className="input-group">
+							<div data-value={this.props.guest} className="btn-group" onClick={this.props.handleToggle}>
+								<a className="btn btn-primary btn-sm active" data-guest="thanked" data-title="no">No</a>
+								<a className="btn btn-primary btn-sm notActive" data-guest="thanked" data-title="yes">Yes</a>
+							</div>
+							<input type="hidden" name="thanked"/>
+						</div>
+					</div>
+				</div>
+			)
+		}
+	}
+});
+
 var MenuBox = React.createClass({
 	render: function (){
 		return(
@@ -180,7 +227,7 @@ var MenuBox = React.createClass({
 						<br/>
 						<div className="input-group">
 							<label>Search: </label>
-							<input onKeyUp={this.props.searchFilter} type="text"/>
+							<input onKeyUp={this.props.searchFilter} type="text" autofocus/>
 						</div>
 					</form>
 				</div>

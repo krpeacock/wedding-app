@@ -129,7 +129,7 @@ aside a {
 }
 
 .btn-sm {
-  font-size: 8px;
+  font-size: 10px;
   display:inline-block;
   position:absolute;
   margin:0;
@@ -148,7 +148,7 @@ p {
 }
 .scooch {
   position:relative;
-  left: 20px;
+  left: 7px;
   margin: 5px;
   z-index:1;
 }

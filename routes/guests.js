@@ -32,21 +32,21 @@ router.get('/new', function(req, res){
   res.render('guests/new');
 })
 
-// router.get('/:id', function(req, res){
-//   knex('guests').where('id', +req.params.id).first().then(function(guest){
-//     knex('gifts').where('guest_id', +req.params.id).then(function(gifts){
-//       res.render("guests/show", {guest: guest, gifts: gifts})
-//     })
-//   })
-// })
-//
-// router.get('/:id/edit', function(req, res){
-//   knex('guests').where('id', +req.params.id).first().then(function(guest){
-//     knex('gifts').where('guest_id', +req.params.id).then(function(gifts){
-//       res.render("guests/edit", {guest: guest, gifts: gifts})
-//     })
-//   })
-// })
+router.get('/:id', function(req, res){
+  knex('guests').where('id', +req.params.id).first().then(function(guest){
+    knex('gifts').where('guest_id', +req.params.id).then(function(gifts){
+      res.render("guests/show", {guest: guest, gifts: gifts})
+    })
+  })
+})
+
+router.get('/:id/edit', function(req, res){
+  knex('guests').where('id', +req.params.id).first().then(function(guest){
+    knex('gifts').where('guest_id', +req.params.id).then(function(gifts){
+      res.render("guests/edit", {guest: guest, gifts: gifts})
+    })
+  })
+})
 
 router.post('/', function(req, res){
   knex('guests').insert({name: req.body.name, json: req.body.json}).then(function(){
@@ -57,6 +57,15 @@ router.post('/rsvp', function(req, res){
   knex('guests').where("id", req.body.guest_id).first().then(function(guest){
     var json = guest.json;
     json.RSVP = req.body.rsvp;
+    knex('guests').where('id', req.body.guest_id).update({json: json}).then(function(updated){
+      res.send(updated);
+    })
+  })
+})
+router.post('/thanked', function(req, res){
+  knex('guests').where("id", req.body.guest_id).first().then(function(guest){
+    var json = guest.json;
+    json.Thanked = req.body.thanked;
     knex('guests').where('id', req.body.guest_id).update({json: json}).then(function(updated){
       res.send(updated);
     })
