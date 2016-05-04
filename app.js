@@ -37,6 +37,6 @@ app.use('/', guests);
 
 
 //Launch application
-app.listen(8000, function(){
-  console.log("Starting a server on localhost:8000");
+app.listen(5000, function(){
+  console.log("Starting a server on localhost:5000");
 });
