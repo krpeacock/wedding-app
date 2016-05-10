@@ -5,18 +5,6 @@ var knex = require('../db/knex');
 router.get("/", function(req, res){
      res.render("react");
 })
-//
-// router.get("/react", function(req, res){
-//   knex('guests').then(function(guests){
-//      res.render("react", {guests: guests});
-//   })
-// })
-//
-// router.get("/rsvp", function(req, res){
-//   knex('guests').then(function(guests){
-//      res.render("rsvps", {guests: guests});
-//   })
-// })
 
 router.get('/guests', function(req, res){
   knex('guests').orderBy("id", "asc").then(function(guests){

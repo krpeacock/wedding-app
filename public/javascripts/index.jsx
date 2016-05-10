@@ -130,7 +130,7 @@ var RsvpDropdown = React.createClass({
 					<div className="scooch">
 						<div className="input-group">
 							<div data-value={this.props.guest} className="btn-group" onClick={this.props.handleToggle}>
-								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="no">Not RSVP'ed</a>
+								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="no">{"Not RSVP'ed"}</a>
 								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="coming">Coming</a>
 								<a className="btn btn-primary btn-sm active" data-guest="rsvp" data-title="not coming">Not Coming</a>
 							</div>
@@ -147,7 +147,7 @@ var RsvpDropdown = React.createClass({
 					<div className="scooch">
 						<div className="input-group">
 							<div data-value={this.props.guest} className="btn-group" onClick={this.props.handleToggle}>
-								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="no">Not RSVP'ed</a>
+								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="no">{"Not RSVP'ed"}</a>
 								<a className="btn btn-primary btn-sm active" data-guest="rsvp" data-title="coming">Coming</a>
 								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="not coming">Not Coming</a>
 							</div>
@@ -164,7 +164,7 @@ var RsvpDropdown = React.createClass({
 					<div className="scooch">
 						<div className="input-group">
 							<div data-value={this.props.guest} className="btn-group" onClick={this.props.handleToggle}>
-								<a className="btn btn-primary btn-sm active" data-guest="rsvp" data-title="no">Not RSVP'ed</a>
+								<a className="btn btn-primary btn-sm active" data-guest="rsvp" data-title="no">{"Not RSVP'ed"}</a>
 								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="coming">Coming</a>
 								<a className="btn btn-primary btn-sm notActive" data-guest="rsvp" data-title="not coming">Not Coming</a>
 							</div>
