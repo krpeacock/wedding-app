@@ -26,7 +26,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      url: '127.0.0.1:5432'
+      url: 'postgres://btrqivpkbujwqn:MV0y2MWGcKiozt0RuNRLbmtuvN@ec2-54-243-199-137.compute-1.amazonaws.com:5432/desdaa9mnhsm7h'
     },
     pool: {
       min: 2,
