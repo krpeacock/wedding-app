@@ -26,7 +26,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'wedding_guests'
+      database: 'WEDDING_GUESTS_URL'
     },
     pool: {
       min: 2,
