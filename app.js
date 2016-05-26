@@ -5,7 +5,7 @@ var path = require('path');
 var methodOverride = require('method-override');
 var express = require('express');
 var router = express.Router();
-var knex = require('./db/knex.js');
+//var knex = require('./db/knex.js');
 var app = express();
 var gifts = require('./routes/gifts');
 var guests = require('./routes/guests');
@@ -37,6 +37,6 @@ app.use('/', guests);
 
 
 //Launch application
-app.listen(5000, function(){
+app.listen(process.env.PORT || 5000, function(){
   console.log("Starting a server on localhost:5000");
 });
