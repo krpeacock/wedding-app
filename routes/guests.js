@@ -9,8 +9,9 @@ fs.readFile('guests.json', function(err, data){
 	guests = JSON.parse(data);
 })
 
+
 function saveGuests(){
-	fs.writeFile('guests.json', guests,  function(err){
+	fs.writeFile('guests.json', JSON.stringify(guests),  function(err){
 		if (err) console.log(err);
 	})
 }
@@ -67,14 +68,19 @@ router.get('/:id/edit', function(req, res){
 //
 router.post('/', function(req, res){
 	guests.push({name: req.body.name, json:req.body.json});
-	saveGuests();
-	res.redirect('/');
+	
+	var save = new Promise((resolve,reject)=>{
+		saveGuests();
+	}).then(res.redirect('/'))
+	
 })
+
 //  knex('guests').insert({name: req.body.name, json: req.body.json}).then(function(){
 //    res.redirect('/');
 //  });
 //})
-//router.post('/rsvp', function(req, res){
+
+router.post('/rsvp', function(req, res){
 //  knex('guests').where("id", req.body.guest_id).first().then(function(guest){
 //    var json = guest.json;
 //    json.RSVP = req.body.rsvp;
