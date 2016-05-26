@@ -21,6 +21,9 @@ function findGuest (key, value){
 		return val[key] === value;
 	})[0];
 }
+function getIndex (found){
+	return guests.indexOf(found);
+}
 
 router.get("/", function(req, res){
      res.render("react");
@@ -81,6 +84,12 @@ router.post('/', function(req, res){
 //})
 
 router.post('/rsvp', function(req, res){
+	guests[getIndex(findGuest('id', +req.body.guest_id))].json.RSVP = req.body.rsvp; 
+	var save = new Promise((resolve,reject)=>{
+		saveGuests();
+	}).then(res.redirect('/'))
+})
+
 //  knex('guests').where("id", req.body.guest_id).first().then(function(guest){
 //    var json = guest.json;
 //    json.RSVP = req.body.rsvp;
@@ -89,6 +98,13 @@ router.post('/rsvp', function(req, res){
 //    })
 //  })
 //})
+
+router.post('/thanked', function(req, res){
+	guests[getIndex(findGuest('id', +req.body.guest_id))].json = req.body.thanked; 
+	var save = new Promise((resolve,reject)=>{
+		saveGuests();
+	}).then(res.redirect('/'))
+})
 //router.post('/thanked', function(req, res){
 //  knex('guests').where("id", req.body.guest_id).first().then(function(guest){
 //    var json = guest.json;
@@ -99,12 +115,28 @@ router.post('/rsvp', function(req, res){
 //  })
 //})
 //
+router.put('/:id', function(req, res){
+	var guest = guests[getIndex(findGuest('id', +req.body.guest_id))];
+	
+	guest.json = req.body.json; 
+	if (req.body.name) guest.name = req.body.name;
+	var save = new Promise((resolve,reject)=>{
+		saveGuests();
+	}).then(res.redirect('/'))
+})
 //router.put('/:id', function(req, res){
 //  knex('guests').where('id', +req.params.id).update({json: req.body.json}).then(function(user){
 //    res.redirect(`/${+req.params.id}`)
 //  });
 //})
 //
+
+router.delete('/:id', function(req, res){
+	guests.splice(guests[getIndex(findGuest('id', +req.body.guest_id))]);
+	var save = new Promise((resolve,reject)=>{
+		saveGuests();
+	}).then(res.redirect('/'))
+})
 //router.delete('/:id', function(req, res){
 //  knex('guests').where('id', +req.params.id).delete().then(function(user){
 //    res.redirect(`/`)
